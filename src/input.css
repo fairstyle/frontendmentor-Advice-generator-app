@@ -1,3 +1,15 @@
-@tailwindcss base;
-@tailwindcss components;
-@tailwindcss utilities;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+
+    :root {
+        --color-primary: 193deg 38% 86%; /* Light Cyan */
+        --color-secondary: 150deg 100% 66%; /* Neon Green */
+        --color-grayish: 217deg 19% 38%;
+        --color-darkgrayish: 217deg 19% 24%;
+        --color-darkblue: 218deg 23% 16%;
+    }
+}
