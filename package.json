@@ -1,0 +1,23 @@
+{
+  "name": "frontendmentor-advice-generator-app",
+  "version": "1.0.0",
+  "description": "frontendmentor | Advice generator app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fairstyle/frontendmentor-Advice-generator-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fairstyle/frontendmentor-Advice-generator-app/issues"
+  },
+  "homepage": "https://github.com/fairstyle/frontendmentor-Advice-generator-app#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.2.0"
+  }
+}
