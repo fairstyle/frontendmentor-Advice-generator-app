@@ -10,8 +10,11 @@ this is my solution in this challenge from frontendmentor.io
 - [Live preview](https://fairstyle.github.io/frontendmentor-Advice-generator-app/)
 
 # Technologies
-- x
-- x
+- Html
+- Tailwindcss
+- Js
+- Sweetalert
+- Api Rest (with fetch)
 
 ## Done desktop ✅
 ![](done/done-desktop.png)
