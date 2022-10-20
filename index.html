@@ -13,19 +13,78 @@
 </head>
 <body>
     <main class="h-screen font-['Manrope'] bg-darkblue grid place-content-center">
-        <div class="bg-darkgrayish rounded-xl py-4 px-2 md:px-12 grid text-center shadow-md">
-            <h1 class="text-secondary pb-2 pt-6 font-extrabold tracking-[.35em] antialiased text-[.8em]">ADVICE #117</h1>
-            <h3 class="text-[20px] md:text-[28px] max-w-[290px] md:max-w-[450px] font-extrabold text-primary py-4 antialiased">"It is easy to sit up and take notice, what's difficult is getting up and taking action."</h3>
+        <div class="bg-darkgrayish rounded-xl py-4 px-2 md:px-12 grid text-center shadow-2xl">
+            <h1 id="idAdvice" class="text-secondary pb-2 pt-6 font-extrabold tracking-[.35em] antialiased text-[.8em]">ADVICE #_ _ _</h1>
+            <h3 id="textAdvice" class="text-[20px] md:text-[28px] max-w-[290px] md:max-w-[450px] font-extrabold text-primary py-4 antialiased">"_ _ _ _ _ _ _ _"</h3>
             <div class="grid place-content-center my-8">
                 <svg class="hidden md:block w-[444px] h-6" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path fill="#4F5D74" d="M0 8h196v1H0zM248 8h196v1H248z"/><g transform="translate(212)" fill="#CEE3E9"><rect width="6" height="16" rx="3"/><rect x="14" width="6" height="16" rx="3"/></g></g></svg>
                 <svg class="block md:hidden w-[295px] h-6" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path fill="#4F5D74" d="M0 8h122v1H0zM173 8h122v1H173z"/><g transform="translate(138)" fill="#CEE3E9"><rect width="6" height="16" rx="3"/><rect x="14" width="6" height="16" rx="3"/></g></g></svg>
             </div>
             <div class="grid place-content-center">
-                <button class="rounded-full bg-secondary w-16 h-16 grid place-content-center -mb-[75%]">
+                <button class="rounded-full bg-secondary w-16 h-16 grid place-content-center -mb-[75%] hover:bg-primary active:scale-75" onclick="getAdvice()">
                     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg"><path d="M20 0H4a4.005 4.005 0 0 0-4 4v16a4.005 4.005 0 0 0 4 4h16a4.005 4.005 0 0 0 4-4V4a4.005 4.005 0 0 0-4-4ZM7.5 18a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm0-9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm0-9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" fill="#202733"/></svg>
                 </button>
             </div>
         </div>
     </main>
+    <script src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script>
+        let loading = false;
+        let currentIdAdvice = null;
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            customClass: {
+                popup: '!bg-grayish !text-primary'
+            }
+        })
+
+        window.onload = function () {
+            getAdvice();
+        }
+
+        function getAdvice(repeat = false){
+
+            if(loading)
+                return false;
+
+            if(!repeat){
+                Toast.fire({
+                    icon: 'info',
+                    title: 'Advice loading......'
+                });
+            }
+
+            loading = true;
+            document.getElementById('idAdvice').innerHTML = 'ADVICE #_ _ _';
+            document.getElementById('textAdvice').innerHTML = '_ _ _ _ _ _ _ _';
+
+            fetch('https://api.adviceslip.com/advice')
+                .then(response => response.json())
+                .then(data => {
+                    loading = false;
+                    if(currentIdAdvice === data.slip.id){
+                        getAdvice(true);
+                        return false;
+                    }
+                    currentIdAdvice = data.slip.id;
+                    document.getElementById('idAdvice').innerHTML = 'ADVICE #' + data.slip.id;
+                    document.getElementById('textAdvice').innerHTML = '"' + data.slip.advice + '"';
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Advice loaded successfully'
+                    });
+                }).catch(error => {
+                    loading = false;
+                    Toast.fire({
+                        icon: 'warning',
+                        title: 'Advice loaded failed'
+                    });
+                });
+
+        }
+    </script>
 </body>
 </html>
